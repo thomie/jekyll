@@ -40,7 +40,8 @@ module Jekyll
             require 'rdiscount'
 
             def markdown(content)
-              RDiscount.new(content).to_html
+              rdiscount_options = self.config['rdiscount'].select { |k, v| v }.map { |k, v| k.to_sym }
+              RDiscount.new(content, *rdiscount_options).to_html
             end
 
           rescue LoadError
